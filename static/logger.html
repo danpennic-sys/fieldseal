@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FieldSeal Logger (Offline Demo)</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 600px; margin: 2rem auto; padding: 1rem; }
+    label { display: block; margin-top: 1rem; font-weight: 600; }
+    input, textarea, button { width: 100%; padding: 0.5rem; margin-top: 0.25rem; box-sizing: border-box; }
+    button { background: #111; color: #fff; border: none; margin-top: 1.5rem; cursor: pointer; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+  </style>
+</head>
+<body>
+  <h1>FieldSeal — Local Job Logger</h1>
+  <p>Capture job details. Export JSON for sealing with the FieldSeal CLI or QuantumGuard.</p>
+  <form id="jobForm">
+    <label>Job ID <input id="job_id" value="JOB-2026-002"></label>
+    <label>Client <input id="client" value="Sample Client"></label>
+    <label>Location <input id="location" value="456 Oak Ave"></label>
+    <label>Notes <textarea id="notes" rows="4">Work completed as described. Customer acknowledged.</textarea></label>
+    <label>Status <input id="status" value="completed"></label>
+    <label>Operator <input id="operator" value="tech"></label>
+    <button type="button" onclick="exportJob()">Export Job JSON</button>
+  </form>
+  <pre id="output"></pre>
+  <script>
+    function exportJob() {
+      const job = {
+        job_id: document.getElementById('job_id').value,
+        client: document.getElementById('client').value,
+        location: document.getElementById('location').value,
+        notes: document.getElementById('notes').value,
+        status: document.getElementById('status').value,
+        operator: document.getElementById('operator').value,
+        logged_at: new Date().toISOString(),
+        media_hashes: []
+      };
+      document.getElementById('output').textContent = JSON.stringify(job, null, 2);
+      const blob = new Blob([JSON.stringify(job, null, 2)], {type: 'application/json'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'fieldseal-job.json';
+      a.click();
+    }
+  </script>
+</body>
+</html>
