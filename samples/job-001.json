@@ -1,0 +1,10 @@
+{
+  "job_id": "JOB-2026-001",
+  "client": "Acme HVAC Repair",
+  "location": "123 Main St, Springfield MO",
+  "notes": "Replaced failed capacitor. System now cooling to setpoint. Customer present and acknowledged work.",
+  "status": "completed",
+  "media_hashes": ["sha256:placeholder-photo1", "sha256:placeholder-photo2"],
+  "operator": "tech-dan",
+  "logged_at": "2026-10-23T15:30:00Z"
+}
